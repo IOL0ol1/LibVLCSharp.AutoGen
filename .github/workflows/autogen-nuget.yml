@@ -30,6 +30,7 @@ jobs:
         run: |
           cd generation
           dotnet ClangSharpPInvokeGenerator "@generate.rsp"
+          cd ..
 
       - name: Build
         run: dotnet build --configuration Release
