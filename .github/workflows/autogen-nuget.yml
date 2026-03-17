@@ -35,7 +35,14 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
+      - name: List generated nupkg files
+        run: Get-ChildItem -Path ".\nupkgs\" -Filter "*.nupkg" -Recurse
+
       - name: Publish NuGet
-        run: dotnet nuget push ./nupkgs/*.nupkg --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+        run: |
+          $nupkgs = Get-ChildItem -Path ".\nupkgs\" -Filter "*.nupkg" -Recurse
+          foreach ($nupkg in $nupkgs) {
+            dotnet nuget push $nupkg.FullName --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+          }
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
