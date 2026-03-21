@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace LibVLCSharp.AutoGen.Interop
@@ -219,6 +220,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref libvlc_audio_track_t* audio
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -230,6 +232,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref libvlc_video_track_t* video
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -241,6 +244,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref libvlc_subtitle_track_t* subtitle
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -609,6 +613,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref _Anonymous_e__Union._d3d11_e__Struct d3d11
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -620,6 +625,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref _Anonymous_e__Union._d3d9_e__Struct d3d9
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -708,6 +714,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref int dxgi_format
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -719,6 +726,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref uint d3d9_format
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -730,6 +738,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref int opengl_format
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -741,6 +750,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref IntPtr p_surface
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
@@ -752,6 +762,7 @@ namespace LibVLCSharp.AutoGen.Interop
 
         public ref _Anonymous_e__Union._anw_e__Struct anw
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 fixed (_Anonymous_e__Union* pField = &Anonymous)
