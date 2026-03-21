@@ -458,7 +458,6 @@ public sealed class RenameVisitor : CSharpSyntaxRewriter
         if (string.IsNullOrEmpty(originalMethodName)) return method;
 
         var attributeLists = method.AttributeLists;
-        bool changed = false;
 
         for (int listIndex = 0; listIndex < attributeLists.Count; listIndex++)
         {
@@ -475,39 +474,31 @@ public sealed class RenameVisitor : CSharpSyntaxRewriter
 
                 var argumentList = attr.ArgumentList ?? SyntaxFactory.AttributeArgumentList();
                 var args = argumentList.Arguments;
-                bool hasEntryPoint = false;
-
                 for (int i = 0; i < args.Count; i++)
                 {
                     var arg = args[i];
-                    if (arg.NameEquals == null ||
-                        !string.Equals(arg.NameEquals.Name.Identifier.Text, "EntryPoint", StringComparison.Ordinal))
-                        continue;
-
-                    hasEntryPoint = true;
-                    args = args.Replace(arg, arg.WithExpression(
-                        SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
-                            SyntaxFactory.Literal(originalMethodName))));
-                    break;
+                    if (arg.NameEquals != null &&
+                        string.Equals(arg.NameEquals.Name.Identifier.Text, "EntryPoint", StringComparison.Ordinal))
+                    {
+                        // EntryPoint already exists, do not modify
+                        return method;
+                    }
                 }
 
-                if (!hasEntryPoint)
-                {
-                    args = args.Add(SyntaxFactory.AttributeArgument(
-                        nameEquals: SyntaxFactory.NameEquals("EntryPoint"),
-                        nameColon: null,
-                        expression: SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
-                            SyntaxFactory.Literal(originalMethodName))));
-                }
+                // EntryPoint not found, add it
+                args = args.Add(SyntaxFactory.AttributeArgument(
+                    nameEquals: SyntaxFactory.NameEquals("EntryPoint"),
+                    nameColon: null,
+                    expression: SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
+                        SyntaxFactory.Literal(originalMethodName))));
 
                 attributes = attributes.Replace(attr, attr.WithArgumentList(argumentList.WithArguments(args)));
                 attributeLists = attributeLists.Replace(attributeList, attributeList.WithAttributes(attributes));
-                changed = true;
-                break;
+                return method.WithAttributeLists(attributeLists);
             }
         }
 
-        return changed ? method.WithAttributeLists(attributeLists) : method;
+        return method;
     }
 
     /// <summary>
