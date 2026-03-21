@@ -24,7 +24,7 @@ internal class Program
     {
         var psz_version = (IntPtr)libvlc_get_version(); // LibVLCSharp.AutoGen.Interop, snake_case
         var version1 = psz_version.GetString(); // to utf8 string
-        var version2 = VlcAbiVersion(); // LibVLCSharp.AutoGen, PascalCase 
+        var version2 = VlcGetVersion(); // LibVLCSharp.AutoGen, PascalCase 
     }
 }
 ```
